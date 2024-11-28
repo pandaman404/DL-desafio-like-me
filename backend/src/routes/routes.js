@@ -5,6 +5,6 @@ import { asyncHandler } from '../middlewares/AsyncHandler.js';
 const router = Router();
 
 router.get('/posts', asyncHandler(getPosts));
-router.post('/post', asyncHandler(createPost));
+router.post('/posts', asyncHandler(createPost));
 
 export default router;

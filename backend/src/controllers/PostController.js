@@ -9,13 +9,13 @@ const getPosts = async (_, res) => {
 const createPost = async (req, res) => {
   const { titulo, img, descripcion, likes } = req.body;
 
-  if (!titulo || !img || !descripcion || !likes) {
+  if (!titulo || !img || !descripcion) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       error: 'Post invalido',
     });
   }
 
-  await createNewPost({ titulo, img, descripcion, likes });
+  await createNewPost({ titulo, img, descripcion, likes: !likes ? 0 : likes });
   return res.status(StatusCodes.OK).json({ message: 'Post creado exitosamente!' });
 };
 
