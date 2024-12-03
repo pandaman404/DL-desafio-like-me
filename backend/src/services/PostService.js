@@ -12,4 +12,18 @@ const createNewPost = async ({ titulo, img, descripcion, likes }) => {
   return null;
 };
 
-export { getAllPosts, createNewPost };
+const deletePostFromDB = async (id) => {
+  const query = 'DELETE FROM posts WHERE id = $1';
+  const values = [id];
+  const { rowCount } = await DB.query(query, values);
+  return rowCount > 0;
+};
+
+const addLikeInPost = async (id) => {
+  const query = 'UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING likes';
+  const values = [id];
+  const { rowCount } = await DB.query(query, values);
+  return rowCount > 0;
+};
+
+export { getAllPosts, createNewPost, deletePostFromDB, addLikeInPost };
